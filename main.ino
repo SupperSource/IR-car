@@ -19,6 +19,7 @@ int Speed = 200;
 #define left 16716015
 #define right 16734885
 #define Stop 16726215
+#define dance 16726217
 
 void setup() {
   Serial.begin(9600);
@@ -28,25 +29,35 @@ void setup() {
 }
 
 void loop() {
+  
   if (IrReceiver.decode(&result)) {
-    Serial.println(result.value);
-    IR.resume();
+      Serial.println(result.value);
+      IR.resume();
   }
   delay(100);
   if (result.value == up ) {
-    motor1.run(FORWARD);
-    motor2.run(FORWARD);
+      motor1.run(FORWARD);
+      motor2.run(FORWARD);
   } else if (result.value == down ) {
-    motor1.run(BACKWARD);
-    motor2.run(BACKWARD);
+      motor1.run(BACKWARD);
+      motor2.run(BACKWARD);
   } else if (result.value == Stop) {
-    motor1.run(RELEASE);
-    motor2.run(RELEASE);
+      motor1.run(RELEASE);
+      motor2.run(RELEASE);
   } else if (result.value == left) {
-    motor1.run(FORWARD);
-    motor2.run(BACKWARD);
+      motor1.run(FORWARD);
+      motor2.run(BACKWARD);
   } else if (result.value == right) {
-    motor1.run(BACKWARD);
-    motor2.run(FORWARD);
+      motor1.run(BACKWARD);
+      motor2.run(FORWARD);
+  } else if (result.value == dance){
+       motor1.run(BACKWARD);
+       motor1.run(BACKWARD);
+       delay(100);
+       motor1.run(FORWARD);
+       motor1.run(FORWARD);
+       delay(100);
+       motor1.run(FORWARD);
+       motor1.run(BACKWARD);
   }
 }
